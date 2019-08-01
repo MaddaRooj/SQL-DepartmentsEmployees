@@ -76,12 +76,10 @@ namespace DepartmentsEmployees
 
             Pause();
 
-
             employees = repository.GetAllEmployeesWithDepartment();
             PrintEmployeeReport("All Employees with departments", employees);
 
             Pause();
-
 
             // Here we get the first department by index.
             //  We could use First() here without passing it a condition, but using the index is easy enough.
@@ -90,7 +88,6 @@ namespace DepartmentsEmployees
             PrintEmployeeReport($"Employees in {firstDepartment.DeptName}", employees);
 
             Pause();
-
 
             // Instantiate a new employee object.
             //  Note we are making the employee's DepartmentId refer to an existing department.
@@ -109,7 +106,6 @@ namespace DepartmentsEmployees
 
             Pause();
 
-
             // Once again, we see First() in action.
             Employee dbJane = employees.First(e => e.FirstName == "Jane");
 
@@ -124,17 +120,14 @@ namespace DepartmentsEmployees
 
             Pause();
 
-
             repository.DeleteEmployee(dbJane.Id);
             employees = repository.GetAllEmployeesWithDepartment();
 
-            PrintEmployeeReport("All Employees after updating Jane", employees);
+            PrintEmployeeReport("All Employees after deleting Jane", employees);
 
             Pause();
 
         }
-
-
 
         /// <summary>
         ///  Prints a simple report with the given title and department information.
@@ -155,6 +148,12 @@ namespace DepartmentsEmployees
                 2: Engineering
                 3: Design
              */
+
+            Console.WriteLine(title);
+            foreach(var d in departments)
+            {
+                Console.WriteLine($"{d.Id} : {d.DeptName}");
+            };
         }
 
         /// <summary>
@@ -186,8 +185,12 @@ namespace DepartmentsEmployees
                 3: Jamal Ross. Dept: Design
 
              */
+            Console.WriteLine(title);
+            foreach(Employee e in employees)
+            {
+                Console.WriteLine($"{e.Id}: {e.FirstName} {e.LastName}. " + (e.Department != null ? $" Dept: {e.Department.DeptName}" : ""));
+            };
         }
-
 
         /// <summary>
         ///  Custom function that pauses execution of the console app until the user presses a key
